@@ -2,5 +2,11 @@
 //Trevor McCormack
 //CS33211
 
-#include <pthread>
-#include <semaphore>
+#include <pthread.h>
+#include <semaphore.h>
+#include <iostream>
+#include <sys/mman.h>
+
+
+
+
