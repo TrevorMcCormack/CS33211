@@ -40,7 +40,7 @@ Included:
 Producer creates 2 random integers then puts them into the table. The consumer then consumes these 2 integers and removes them from the table and fills it with 0 to indicate empty space. The producer then creates another set of 2 integers and the cycle continues until "MAXITEMS" number of iterations which can be changed to any number. 
 
 
-For the output, when both programs run it will create 10 item sets. In each of these item sets there will be 2 items which get added to the table by the producer and then removed from the table by the consumer. After completing the 10 item sets the producer will stop producing items and to end the program enter in the command: ctrl + c
+For the output, when both programs run it will create 5 item sets. In each of these item sets there will be 2 items which get added to the table by the producer and then removed from the table by the consumer. After completing the 5 item sets the producer will stop producing items and to end the program enter in the command: ctrl + c
 
 Output:
 [1] 844976
