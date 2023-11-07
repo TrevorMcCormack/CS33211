@@ -15,10 +15,12 @@ int main(int argc, char *argv[]) {
     char *sharedMemPath;
     struct sharedMemBuff *producerMem;
 
-    sharedMemPath = argv[1];                                            // grab shared memory path from command
+    sharedMemPath = argv[1];                                                   // grab shared memory path from command
 
-    fd = shm_open(sharedMemPath, O_CREAT | O_EXCL | O_RDWR, 0600);      // open shared memory
+    fd = shm_open(sharedMemPath, O_CREAT | O_EXCL | O_RDWR, 0600);             // open shared memory
     ftruncate(fd, sizeof(*producerMem));                                       // set to the size of the struct 
+
+    producerMem = static_cast<sharedMemBuff*>(mmap(NULL, sizeof(producerMem), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
 
     sem_init((&producerMem -> sem1), 1, 1);                                    // initialize first semaphore
     sem_init((&producerMem -> empty), 1, SIZE);                                // initialize empty semaphore
