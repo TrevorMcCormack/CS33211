@@ -7,7 +7,7 @@
 
 #include <semaphore.h>
 
-const int MAXITEMS = 5;             // max amount of items
+const int MAXITEMS = 5;             // max amount of item sets
 const int TABLESIZE = 2;            // max amount allowed in the table at once
 
 struct table {
@@ -15,5 +15,6 @@ struct table {
     sem_t empty;                    // number of empty spaces
     sem_t full;                     // number of full spaces
 };
+
 
 #endif
