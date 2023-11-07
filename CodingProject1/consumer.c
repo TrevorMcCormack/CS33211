@@ -9,17 +9,20 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/mman.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
+
+
 
 int main() {
     int sharedMem; 
     int items;
     struct table *consumerMem;
 
-    sharedMem = shm_open("SharedMemory", O_CREAT | O_RDWR, S_IRUSR | S_ IWUSR);
+    sharedMem = shm_open("SharedMemory", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
 
 
     if(sharedMem == -1) {           // checks if it did not access sharedMem
@@ -33,7 +36,7 @@ int main() {
         ftruncate(sharedMem, sizeof(struct table));         // set to size of struct
     }
 
-    consumerMem = mmap(0, sizeof(struct table), PROT_READ | PROT_WRITE, MAP_SHARED, shared, 0); // points to shared mem buffer
+    consumerMem = mmap(0, sizeof(struct table), PROT_READ | PROT_WRITE, MAP_SHARED, sharedMem, 0); // points to shared mem buffer
     items = 0;
 
     while(items < MAXITEMS) {
@@ -43,8 +46,8 @@ int main() {
 
         for(int i = 0; i < TABLESIZE; ++i) {
             int consumed = consumerMem -> sharedBuffer[i];   // create consumed int to use in printf
-            printf("Removed by consumer: ", consumed, "\n");
-            consumerMem -> sharedBuffer = 0;    // create an empty space
+            printf("Removed by consumer: %d\n", consumerMem -> sharedBuffer[i]);
+            consumerMem -> sharedBuffer[i] = 0;    // create an empty space
         }
 
         ++items;
