@@ -11,7 +11,7 @@ const int MAXITEMS = 10;            // max amount of items
 const int TABLESIZE = 2;            // max amount allowed in the table at once
 
 struct table {
-    int sharedBuffer[TABLESIZE];    // shared array for both programs to use
+    int sharedBuffer[2];    // shared array for both programs to use
     sem_t empty;                    // number of empty spaces
     sem_t full;                     // number of full spaces
 };
