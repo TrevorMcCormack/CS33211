@@ -7,7 +7,7 @@
 
 #include <semaphore.h>
 
-const int MAXITEMS = 10;            // max amount of items
+const int MAXITEMS = 5;            // max amount of items
 const int TABLESIZE = 2;            // max amount allowed in the table at once
 
 struct table {
