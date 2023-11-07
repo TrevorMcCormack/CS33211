@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 int main() {
     srand(time(NULL));
@@ -18,7 +21,7 @@ int main() {
     int items = 0;
 
     sharedMem = shm_open("/SharedMemory", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR); // location of shared memory
-    
+
     if(sharedMem == -1) {           // checks if it did not access sharedMem
         printf("Error during opening shared memory");
     }
