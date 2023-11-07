@@ -1,3 +1,7 @@
+//Code for shared memory buffer header file
+//Trevor McCormack
+//CS33211
+
 #ifndef SHAREDMEMBUFF_HPP
 #define SHAREDMEMBUFF_HPP
 
