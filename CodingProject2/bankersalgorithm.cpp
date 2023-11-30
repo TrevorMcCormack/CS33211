@@ -71,6 +71,107 @@ void inputFile(std::vector<std::vector<int>> &allocation, std::vector<std::vecto
 
 
 int main() {
+    int processes;
+    int resources;
+    std::vector<std::vector<int>> allocation;
+    std::vector<std::vector<int>> max;
+    std::vector<int> available;
+
+    inputFile(allocation, max, available, processes, resources);
+
+
+    std::cout << "Max resource table:" << std::endl;
+    for(int i = 0; i < processes; i++) {
+        for(int j = 0; j < resources; j++) {
+            std::cout << allocation[i][j] << " ";       //output allocation vector
+        }
+
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+
+    std::cout << "Available resources:" << std::endl;
+    for(int i = 0; i < resources; i++) {
+        std::cout << available[i] << " ";   // output available vector
+    }
+
+    std::cout << std::endl;
+
+    int finished[processes];                // for determining finished processes
+    int end[processes];                     // for holding safe seq order
+    int needed[processes][resources];       // for needed resources
+    int it = 0;                             // iterator for order of processes
+
+    for(int i = 0; i < processes; i++) {
+        finished[i] = 0;                    // set all elements of finished to 0
+    }
+
+    for(int i = 0; i < processes; i++) {
+        for(int j = 0; j < resources; j++) {
+            needed[i][j] = max[i][j] - allocation[i][j];
+        }
+    }
+
+
+    std::cout << "Needed resource list:" << std::endl;
+    for(int i = 0; i < processes; i++) {
+        for(int j = 0; j < resources; j++) {
+            std::cout << needed[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    for(int i = 0; i < processes; i++) {                // iterate through processes
+        int flag = 0;                                   // flag set to false
+
+        for(int j = 0; j < processes; j++) {            
+
+            if(finished[j] == 0) {                      // if process is not finished
+
+                for(int k = 0; k < resources; k++) {    // iterate through resources
+
+                    if(needed[j][k] > available[k]) {   // check if needed > available
+                        flag = 1;                       // set flag to true
+                        break;
+                    }
+                }                                       // end k loop
+
+                if(flag == 0) {                         // check if flag is false
+                    end[it++] = j;                      // add process to position of iterator
+
+                    for(int l = 0; l < resources; l++) {
+                        available[l] = available[l] + allocation[j][l]; // add allocated resource to available
+                    }                                   // end l loop
+
+                    finished[j] = 1;                    // set finished to true
+                }
+            }
+        }                                               // end j loop
+    }                                                   // end i loop
+
+    int flag = 1;                                       // safe flag is true
+    for(int i = 0; i < processes; i++) {                // iterate through all processes
+        if(finished[i] == 0) {                          // check if process is unfinished
+            flag = 0;                                   // set safe flag to false
+            std::cout << "The sequence is unsafe" << std::end;  
+            break;
+        }
+    }
+
+
+    if(flag == 1) {                                     // check if flag is safe
+        std::cout << "The sequence is safe" << std::endl;
+
+        for(int i = 0; i < processes - 1; i++) {
+            std::cout << "P" << end[i] << " -> ";
+        }
+
+        std::cout << "P" << end[processes] << std::endl;    //print last process
+    }
     
     return 0;
 }
