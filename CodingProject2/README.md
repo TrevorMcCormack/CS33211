@@ -45,12 +45,47 @@ Documents and readme.
 
 
 Included:
+<iostream>
+<fstream>
+<string>
+<ctype.h>
+<vector>
 
 
-paragraph about implementation
+The program reads in the data inputted in matrix.csv and stores the data into 3 different vectors. Allocation vector used for the allocation matrix, max vector for the max resource matrix, and available vector for the available resource list. Then the program creates a needed matrix by subtracting the allocated resource values from the max resource values. It prints all of the resource matrices to the console. Then it iterates through each process and determines whether there is a position in the sequence where the process finishes and it's needed resource is met. Then the program loops until either all finishable processes are finished it is possible a process will not have a position in the sequence where it can finish. Then the program iterates through the finish array and checks if all processes were finished. If not then the program will print the sequnce is unsafe. If it finishes then the program prints the processes in the safe sequnce order.
 
 
-paragraph about output
+The output prints out all of the resource matrices then prints the safe sequnce if it is safe or prints that the sequnce is unsafe it it is not safe.
+
+To compile the program use the commands:
+g++ bankersalgorithm.cpp -o output
+./output
 
 
 Output:
+Allocation resource table:
+0 1 0 
+2 0 0 
+3 0 2 
+2 1 1 
+0 0 2 
+
+Max resource table:
+7 5 3 
+3 2 2 
+9 0 2 
+2 2 2 
+4 3 3 
+
+Available resources:
+3 3 2 
+
+Needed resource list:
+7 4 3 
+1 2 2 
+6 0 0 
+0 1 1 
+4 3 1 
+
+The safe sequnce is:
+P1 -> P3 -> P4 -> P0 -> P2
