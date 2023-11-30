@@ -80,7 +80,7 @@ int main() {
     inputFile(allocation, max, available, processes, resources);
 
 
-    std::cout << "Max resource table:" << std::endl;
+    std::cout << "Allocation resource table:" << std::endl;
     for(int i = 0; i < processes; i++) {
         for(int j = 0; j < resources; j++) {
             std::cout << allocation[i][j] << " ";       //output allocation vector
@@ -91,13 +91,22 @@ int main() {
 
     std::cout << std::endl;
 
+    std::cout << "Max resource table:" << std::endl;
+    for(int i = 0; i < processes; i++) {
+        for(int j = 0; j < resources; j++) {
+            std::cout << max[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
 
     std::cout << "Available resources:" << std::endl;
     for(int i = 0; i < resources; i++) {
         std::cout << available[i] << " ";   // output available vector
     }
 
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
 
     int finished[processes];                // for determining finished processes
     int end[processes];                     // for holding safe seq order
@@ -126,11 +135,11 @@ int main() {
     std::cout << std::endl;
 
     for(int i = 0; i < processes; i++) {                // iterate through processes
-        int flag = 0;                                   // flag set to false
 
         for(int j = 0; j < processes; j++) {            
 
             if(finished[j] == 0) {                      // if process is not finished
+                int flag = 0;                           // flag set to false
 
                 for(int k = 0; k < resources; k++) {    // iterate through resources
 
@@ -144,7 +153,7 @@ int main() {
                     end[it++] = j;                      // add process to position of iterator
 
                     for(int l = 0; l < resources; l++) {
-                        available[l] = available[l] + allocation[j][l]; // add allocated resource to available
+                        available[l] += allocation[j][l]; // add allocated resource to available
                     }                                   // end l loop
 
                     finished[j] = 1;                    // set finished to true
@@ -156,20 +165,21 @@ int main() {
     int flag = 1;                                       // safe flag is true
     for(int i = 0; i < processes; i++) {                // iterate through all processes
         if(finished[i] == 0) {                          // check if process is unfinished
-            std::cout << "The sequence is unsafe" << std::endl;
             flag = 0;                                   // set safe flag to false
+            std::cout << "The sequence is unsafe" << std::endl;
+            break;
         }
     }
 
 
     if(flag == 1) {                                     // check if flag is safe
-        std::cout << "The sequence is safe" << std::endl;
+        std::cout << "The safe sequnce is:" << std::endl;
 
         for(int i = 0; i < processes - 1; i++) {
             std::cout << "P" << end[i] << " -> ";
         }
 
-        std::cout << "P" << end[processes] << std::endl;    //print last process
+        std::cout << "P" << end[processes - 1] << std::endl;    //print last process
     }
     
     return 0;
