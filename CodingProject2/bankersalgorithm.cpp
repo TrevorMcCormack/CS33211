@@ -9,7 +9,7 @@
 #include <vector>
 
 
-void inputFile(std::vector<std::vector<int>> &allocation, std::vector<std::vector<int>> &max, std::vector<int> &available, int &pro, int &res) {
+void inputFile(std::vector<std::vector<int>> &allocation, std::vector<std::vector<int>> &max, std::vector<int> &available, int &processes, int &resources) {
 
 }
 
