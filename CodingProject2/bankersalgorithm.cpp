@@ -42,8 +42,31 @@ void inputFile(std::vector<std::vector<int>> &allocation, std::vector<std::vecto
             str = "";                               // set string to blank
         }
 
+        else if(isdigit(ch) && ch != ' ' && ch != ',') {
+            str.push_back(ch);                      // adds ch to string if it is a number
+        }
+
+        if(ch == '\n') {                            // check if character is a newline
+            iterator = 0;                           // resets the iterator
+            row.clear();                            // clears the row values
+        }
+
+        else if(ch == ',') {
+            if(iterator == 0) {                           
+                allpcation.push_back(row);          // pushes row onto allocation vector
+            }
+
+            else if(iterator == 1) {
+                max.push_back(row);                 // pushes row onto max vector
+            }
+
+            row.clear();
+            iterator++;
+        }
     }
 
+    processes = allocation.size();                  // makes processes = number of rows in allocation
+    resources = available.size();                   // makes resources = number of rows in available
 }
 
 
