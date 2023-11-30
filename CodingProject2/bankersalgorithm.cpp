@@ -1,5 +1,5 @@
 // Code for Banker's Algorithm
-//Trevor McCormack
+// Trevor McCormack
 // CS33211
 
 #include <iostream>
@@ -53,7 +53,7 @@ void inputFile(std::vector<std::vector<int>> &allocation, std::vector<std::vecto
 
         else if(ch == ',') {
             if(iterator == 0) {                           
-                allpcation.push_back(row);          // pushes row onto allocation vector
+                allocation.push_back(row);          // pushes row onto allocation vector
             }
 
             else if(iterator == 1) {
@@ -156,9 +156,8 @@ int main() {
     int flag = 1;                                       // safe flag is true
     for(int i = 0; i < processes; i++) {                // iterate through all processes
         if(finished[i] == 0) {                          // check if process is unfinished
+            std::cout << "The sequence is unsafe" << std::endl;
             flag = 0;                                   // set safe flag to false
-            std::cout << "The sequence is unsafe" << std::end;  
-            break;
         }
     }
 
